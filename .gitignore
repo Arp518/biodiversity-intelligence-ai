@@ -1,0 +1,22 @@
+# Virtual environment
+.venv/
+venv/
+
+# Environment variables / API keys
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Chroma database
+chroma_db/
+
+# Windows
+Thumbs.db
+
+# macOS
+.DS_Store
