@@ -552,7 +552,7 @@ biodiversity-intelligence-ai/
 └── README.md
 ```
 
-Not every folder needs to exist on Day 1.
+
 
 ---
 
