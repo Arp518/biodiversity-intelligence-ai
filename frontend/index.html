@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biodiversity Intelligence AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <header>
+        <div class="brand">
+            <div class="logo">🌱</div>
+            <div>
+                <h1>Biodiversity Intelligence AI</h1>
+                <p>Evidence-grounded agricultural assistant</p>
+            </div>
+        </div>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            Scientific RAG
+        </div>
+    </header>
+
+    <main id="chat">
+
+        <div class="welcome">
+
+            <div class="welcome-icon">🌿</div>
+
+            <h2>How can I help with your land?</h2>
+
+            <p>
+                Ask about soil health, biodiversity, rainfall,
+                agricultural management or restoration.
+            </p>
+
+            <div class="suggestions">
+
+                <button onclick="useSuggestion(this)">
+                    My soil organic carbon is low. What can I do?
+                </button>
+
+                <button onclick="useSuggestion(this)">
+                    How can I improve biodiversity on a monoculture farm?
+                </button>
+
+                <button onclick="useSuggestion(this)">
+                    What practices can improve soil health in a semi-arid region?
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <div class="input-area">
+
+        <div class="input-container">
+
+            <textarea
+                id="question"
+                rows="1"
+                placeholder="Describe your farm conditions or ask a question..."
+            ></textarea>
+
+            <button id="sendButton" onclick="sendMessage()">
+                ➤
+            </button>
+
+        </div>
+
+        <p class="disclaimer">
+            Recommendations are generated from retrieved scientific evidence.
+        </p>
+
+    </div>
+
+</div>
+<script src="script.js"></script>
+
+</body>
+</html>
