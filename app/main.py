@@ -1,6 +1,8 @@
+from pathlib import Path
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel, Field
 
 from app.rag import rag_answer, general_answer
 from app.router import classify_query
@@ -47,18 +49,12 @@ class AnswerResponse(BaseModel):
 # HEALTH CHECK
 # ============================================================
 
-@app.get("/")
-def root():
-    return {
-        "status": "ok",
-        "message": "Biodiversity Intelligence AI API is running"
-    }
-
-
 @app.get("/health")
+@app.get("/api/health")
 def health():
     return {
-        "status": "healthy"
+        "status": "healthy",
+        "service": "Biodiversity Intelligence AI API"
     }
 
 
@@ -105,3 +101,12 @@ def ask_question(request: QuestionRequest):
             status_code=500,
             detail=str(e)
         )
+
+
+# ============================================================
+# SERVE FRONTEND (FOR UNIFIED DEPLOYMENT)
+# ============================================================
+
+FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
+if FRONTEND_DIR.exists():
+    app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")

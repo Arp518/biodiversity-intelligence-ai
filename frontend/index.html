@@ -1,91 +1,303 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Biodiversity Intelligence AI</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biodiversity Intelligence AI — 3D Earth Biosphere & Evidence RAG</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Three.js (High Performance 3D Engine) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+<div class="app-container" id="app">
 
-<div class="app">
-
-    <header>
-        <div class="brand">
-            <div class="logo">🌱</div>
-            <div>
-                <h1>Biodiversity Intelligence AI</h1>
-                <p>Evidence-grounded agricultural assistant</p>
+    <!-- ========================================================
+         TOP NAVIGATION BAR & TELEMETRY
+         ======================================================== -->
+    <header class="navbar">
+        <div class="nav-left">
+            <div class="brand-logo">
+                <span class="logo-orb"></span>
+                <span class="logo-icon">🌿</span>
+            </div>
+            <div class="brand-info">
+                <div class="brand-title-row">
+                    <h1>Biodiversity Intelligence AI</h1>
+                    <span class="badge-version">v2.0 3D</span>
+                </div>
+                <p>Evidence-Grounded Agroecological Decision Support</p>
             </div>
         </div>
 
-        <div class="status">
-            <span class="status-dot"></span>
-            Scientific RAG
+        <!-- Telemetry Tickers -->
+        <div class="nav-telemetry">
+            <div class="telemetry-pill" title="Vector Database Status">
+                <span class="pill-dot active"></span>
+                <span class="pill-label">ChromaDB RAG</span>
+                <span class="pill-val">Online</span>
+            </div>
+            <div class="telemetry-pill" title="LLM Synthesis Engine">
+                <span class="pill-dot gemini"></span>
+                <span class="pill-label">Model</span>
+                <span class="pill-val">Gemini 2.5</span>
+            </div>
+            <div class="telemetry-pill" title="Earth Biosphere Visualization">
+                <span class="pill-dot globe-active"></span>
+                <span class="pill-label">3D Engine</span>
+                <span class="pill-val">WebGL 60FPS</span>
+            </div>
+        </div>
+
+        <!-- Actions & View Toggles -->
+        <div class="nav-right">
+            <!-- Soundscape Ambient Toggle -->
+            <button class="icon-btn" id="soundToggle" title="Toggle Ambient Eco-Soundscape" aria-label="Toggle Sound">
+                <span class="btn-icon">🔇</span>
+            </button>
+
+            <!-- Theme Toggle -->
+            <button class="icon-btn" id="themeToggle" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+                <span class="btn-icon">🌓</span>
+            </button>
+
+            <!-- Layout View Switcher -->
+            <div class="view-switch-group">
+                <button class="view-btn active" data-view="split" title="Split Screen: 3D Biosphere + AI Intelligence">
+                    <span class="view-icon">◫</span> Split
+                </button>
+                <button class="view-btn" data-view="globe" title="Cinema View: Interactive 3D Biosphere">
+                    <span class="view-icon">🌍</span> 3D Earth
+                </button>
+                <button class="view-btn" data-view="chat" title="Focus View: Scientific Consultation">
+                    <span class="view-icon">💬</span> Chat
+                </button>
+            </div>
         </div>
     </header>
 
-    <main id="chat">
+    <!-- ========================================================
+         MAIN WORKSPACE: 3D BIOSPHERE + INTELLIGENCE CHAT
+         ======================================================== -->
+    <main class="workspace layout-split" id="workspace">
 
-        <div class="welcome">
+        <!-- ====================================================
+             LEFT STAGE: INTERACTIVE 3D EARTH BIOSPHERE
+             ==================================================== -->
+        <section class="stage-3d" id="stage3D">
+            
+            <!-- Canvas Container -->
+            <div id="globe-container">
+                <canvas id="globe-canvas"></canvas>
+            </div>
 
-            <div class="welcome-icon">🌿</div>
+            <!-- 3D HUD Overlay: Top Controls -->
+            <div class="hud-top">
+                <div class="hud-chip">
+                    <span class="hud-pulse"></span>
+                    <span class="hud-title">Planetary Biosphere Observer</span>
+                    <span class="hud-coords" id="hudCoords">Lat: 20.0° N | Lon: 0.0° E</span>
+                </div>
 
-            <h2>How can I help with your land?</h2>
+                <!-- Layer Selector -->
+                <div class="layer-selector">
+                    <button class="layer-pill active" data-layer="vitality" title="Vegetation & Canopy Vitality Index">
+                        🌿 Flora Vitality
+                    </button>
+                    <button class="layer-pill" data-layer="carbon" title="Soil Organic Carbon (SOC) Heatmap">
+                        🍂 Soil Carbon (SOC)
+                    </button>
+                    <button class="layer-pill" data-layer="hydrology" title="Precipitation & Hydrology Vectors">
+                        💧 Hydrology Flow
+                    </button>
+                    <button class="layer-pill" data-layer="corridors" title="Biodiversity & Habitat Corridors">
+                        🐝 Corridors
+                    </button>
+                </div>
+            </div>
 
-            <p>
-                Ask about soil health, biodiversity, rainfall,
-                agricultural management or restoration.
-            </p>
+            <!-- 3D Hotspot Inspector Card (Revealed on Marker Click/Hover) -->
+            <div class="hotspot-card" id="hotspotCard">
+                <div class="hotspot-card-header">
+                    <span class="hotspot-badge" id="hsType">Tropical Agro-Ecosystem</span>
+                    <button class="hotspot-close" id="hsClose" aria-label="Close card">✕</button>
+                </div>
+                <h3 class="hotspot-name" id="hsName">Indo-Gangetic Agro-Plain</h3>
+                <p class="hotspot-desc" id="hsDesc">
+                    Intensive multi-crop cereal rotation facing critical soil organic carbon depletion and nutrient mining.
+                </p>
+                <div class="hotspot-metrics">
+                    <div class="metric-box">
+                        <span class="m-label">Soil Carbon</span>
+                        <span class="m-val" id="hsSoc">0.45% (Critical)</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="m-label">Rainfall</span>
+                        <span class="m-val" id="hsRain">780 mm/yr</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="m-label">Biodiversity</span>
+                        <span class="m-val" id="hsBio">Low (Monoculture)</span>
+                    </div>
+                </div>
+                <div class="hotspot-actions">
+                    <button class="btn-analyze" id="hsConsultBtn">
+                        ✨ Consult AI on This Biome
+                    </button>
+                </div>
+            </div>
 
-            <div class="suggestions">
+            <!-- 3D HUD Overlay: Bottom Interaction Bar -->
+            <div class="hud-bottom">
+                <div class="globe-controls">
+                    <button class="hud-btn" id="btnRotate" title="Toggle Auto-Rotation">
+                        <span class="hud-btn-icon">🔄</span> Auto-Orbit
+                    </button>
+                    <button class="hud-btn" id="btnSunlight" title="Toggle Solar Lighting Angle">
+                        <span class="hud-btn-icon">☀️</span> Solar Cycle
+                    </button>
+                    <button class="hud-btn" id="btnResetView" title="Reset Camera Perspective">
+                        <span class="hud-btn-icon">🎯</span> Reset View
+                    </button>
+                </div>
 
-                <button onclick="useSuggestion(this)">
-                    My soil organic carbon is low. What can I do?
-                </button>
+                <div class="hud-hint">
+                    <span>Drag to rotate • Scroll to zoom • Click nodes for telemetry</span>
+                </div>
+            </div>
+        </section>
 
-                <button onclick="useSuggestion(this)">
-                    How can I improve biodiversity on a monoculture farm?
-                </button>
 
-                <button onclick="useSuggestion(this)">
-                    What practices can improve soil health in a semi-arid region?
-                </button>
+        <!-- ====================================================
+             RIGHT STAGE: SCIENTIFIC INTELLIGENCE CONVERSATION HUB
+             ==================================================== -->
+        <section class="stage-chat" id="stageChat">
+            
+            <!-- Chat Header -->
+            <div class="chat-header">
+                <div class="chat-header-title">
+                    <div class="status-indicator">
+                        <span class="status-beacon"></span>
+                    </div>
+                    <div>
+                        <h2>Agroecological Intelligence</h2>
+                        <span class="chat-subtitle">Grounded in scientific publications & soil measurements</span>
+                    </div>
+                </div>
+
+                <div class="chat-actions">
+                    <button class="chat-action-btn" id="btnClearChat" title="Reset Conversation">
+                        🗑️ Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Messages Stream Area -->
+            <div class="chat-stream" id="chat">
+                
+                <!-- Welcome Banner -->
+                <div class="welcome-card" id="welcomeScreen">
+                    <div class="welcome-badge">🌱 Scientific Evidence RAG</div>
+                    <h2>Welcome to Biodiversity Intelligence</h2>
+                    <p>
+                        Ask precise questions about your soil metrics, crop rotations, water retention, 
+                        or biodiversity restoration. Every response is synthesized from peer-reviewed environmental literature.
+                    </p>
+
+                    <!-- Quick Prompt Clusters -->
+                    <div class="prompt-groups">
+                        <div class="group-title">RECOMMENDED SCIENTIFIC INQUIRIES</div>
+                        
+                        <div class="prompt-chips">
+                            <button class="prompt-chip" onclick="useSuggestion(this)">
+                                <span class="chip-icon">🍂</span>
+                                <div class="chip-text">
+                                    <strong>Low Soil Carbon Restoration</strong>
+                                    <span>My soil organic carbon is 0.4%. How can I build humus?</span>
+                                </div>
+                            </button>
+
+                            <button class="prompt-chip" onclick="useSuggestion(this)">
+                                <span class="chip-icon">🌾</span>
+                                <div class="chip-text">
+                                    <strong>Monoculture Diversification</strong>
+                                    <span>How to integrate polyculture crops without yield loss?</span>
+                                </div>
+                            </button>
+
+                            <button class="prompt-chip" onclick="useSuggestion(this)">
+                                <span class="chip-icon">💧</span>
+                                <div class="chip-text">
+                                    <strong>Semi-Arid Water Retention</strong>
+                                    <span>What practices improve soil moisture in 400mm rainfall zones?</span>
+                                </div>
+                            </button>
+
+                            <button class="prompt-chip" onclick="useSuggestion(this)">
+                                <span class="chip-icon">🌳</span>
+                                <div class="chip-text">
+                                    <strong>Agroforestry & Windbreaks</strong>
+                                    <span>Best native tree species for field borders and pollinator corridors?</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
-        </div>
+            <!-- Input Station -->
+            <div class="chat-input-station">
+                
+                <!-- Topic Filter Quick Pills -->
+                <div class="quick-topics">
+                    <span class="quick-label">Explore:</span>
+                    <button class="topic-pill" onclick="appendTopic('Soil Organic Carbon')">🍂 Soil Carbon</button>
+                    <button class="topic-pill" onclick="appendTopic('Cover Crops & Nitrogen Fixation')">🍀 Cover Crops</button>
+                    <button class="topic-pill" onclick="appendTopic('Microbial Biomass & Mycorrhizae')">🍄 Soil Microbiome</button>
+                    <button class="topic-pill" onclick="appendTopic('Rainwater Infiltration & Mulch')">💧 Infiltration</button>
+                </div>
+
+                <div class="input-glass-box">
+                    <textarea 
+                        id="question" 
+                        rows="1" 
+                        placeholder="Describe your soil conditions, rainfall, or ask a biodiversity question..." 
+                        aria-label="Ask agricultural or biodiversity question"
+                    ></textarea>
+
+                    <div class="input-actions">
+                        <button id="sendButton" onclick="sendMessage()" title="Send question (Enter)" aria-label="Send">
+                            <span class="send-arrow">➔</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="input-footer">
+                    <span class="input-disclaimer">
+                        🔒 Verified Citations: Structured facts take precedence over generalized LLM outputs.
+                    </span>
+                    <span class="input-keys">Press <strong>Enter ↵</strong> to send, <strong>Shift+Enter</strong> for newline</span>
+                </div>
+            </div>
+
+        </section>
 
     </main>
 
-    <div class="input-area">
-
-        <div class="input-container">
-
-            <textarea
-                id="question"
-                rows="1"
-                placeholder="Describe your farm conditions or ask a question..."
-            ></textarea>
-
-            <button id="sendButton" onclick="sendMessage()">
-                ➤
-            </button>
-
-        </div>
-
-        <p class="disclaimer">
-            Recommendations are generated from retrieved scientific evidence.
-        </p>
-
-    </div>
+    <!-- Hotspot Telemetry Floating Toast -->
+    <div class="toast-notification" id="toast"></div>
 
 </div>
-<script src="script.js"></script>
 
+<!-- Application Logic -->
+<script src="script.js"></script>
 </body>
 </html>

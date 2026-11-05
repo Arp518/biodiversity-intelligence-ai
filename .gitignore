@@ -12,9 +12,6 @@ __pycache__/
 # Jupyter
 .ipynb_checkpoints/
 
-# Chroma database
-chroma_db/
-
 # Windows
 Thumbs.db
 
